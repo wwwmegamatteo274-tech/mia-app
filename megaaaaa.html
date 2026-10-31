@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#b00000">
+<title>Classe Víva</title>
+<style>
+:root{--r:#b00000;--bg:#111;--cd:#222;--bd:#333;--tx:#fff;--mu:#a9a9a9;--gr:#4f8a1e;--bl:#0a6cc4;--or:#c25a00;--ye:#d9b31a}
+*{box-sizing:border-box}body{margin:0;background:var(--r);color:var(--tx);font-family:-apple-system,system-ui,sans-serif}
+#app{min-height:100vh;display:flex;flex-direction:column}
+.hd{padding:calc(14px + env(safe-area-inset-top)) 22px 18px}
+.hd h1{margin:0;font-size:28px;font-style:italic;font-weight:800;letter-spacing:-.5px}
+.hd small{opacity:.9;font-size:13px}.top{display:flex;justify-content:space-between;align-items:center}
+.av{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--r);font-weight:700;display:flex;align-items:center;justify-content:center}
+.days{display:flex;gap:6px;overflow-x:auto;position:relative;margin-top:12px;scrollbar-width:none}.days::-webkit-scrollbar{display:none}
+.dy{flex:0 0 46px;text-align:center;font-size:13px;padding:6px 0;border-radius:24px}.dy b{display:block;font-size:20px;margin-top:6px}
+.ic{width:26px;height:26px;display:block;margin:0 auto 3px}.fn .ic{width:21px;height:21px;margin:0 0 8px}nav button i{font-size:0}
+.dchip{display:inline-flex;align-items:center;gap:6px;border-radius:22px;padding:0 14px;height:34px;font-size:21px;font-weight:700;background:var(--gr)}.dchip.or{background:var(--or)}.dchip.ko{background:var(--r)}.dchip .ic{width:17px;height:17px;margin:0}
+.pg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.pg::-webkit-scrollbar{display:none}.pp{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:1fr 1fr;gap:18px 10px;padding:4px 8px}.pi{min-width:0}.pn{font-weight:700;font-size:16px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:12px}.dots i{width:7px;height:7px;border-radius:50%;background:#444}.dots i.a{background:#aaa}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:26px 6px;margin-top:22px}.ai{display:flex;align-items:center;gap:10px}.c .ai b{font-size:15px;text-transform:none;display:block}.ai .mu{font-size:12px;white-space:nowrap}.ac{flex:none;width:46px;height:40px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff}.hd .ic{width:30px;height:30px;margin:0}
+.pill{background:none;border:1.5px solid #e04040;color:#ff5a5a;border-radius:22px;padding:8px 18px;font-weight:700;font-size:15px}.hs{display:flex;gap:10px;overflow-x:auto;margin-bottom:14px;scrollbar-width:none}.vc .chip{min-width:0;width:68px;height:38px;line-height:38px;padding:0;font-size:19px;border-radius:20px;text-align:center;display:inline-block}.vc{flex:0 0 43%;background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:150px}
+.dy.on{background:#fff;color:var(--r)}
+.body{flex:1;background:var(--bg);border-radius:32px 32px 0 0;padding:20px 16px calc(110px + env(safe-area-inset-bottom))}
+h2{margin:6px 4px 14px;font-size:22px}h4{margin:18px 4px 8px;color:var(--mu);font-size:13px;text-transform:uppercase}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:12px}
+.c b{font-size:17px;text-transform:uppercase}.mu{color:var(--mu);font-size:13px}
+.line{border-top:1px solid var(--bd);margin:10px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.chip{display:inline-block;border-radius:22px;padding:8px 16px;font-weight:700;font-size:20px;background:var(--gr)}
+.chip.or{background:var(--or)}.chip.ko{background:var(--r)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fn{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:20px 4px 10px;min-height:92px;text-align:center;font-size:14px;font-weight:600;line-height:1.25;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}.fn i{display:block;font-style:normal;font-size:0;margin-bottom:0}
+.ab{display:flex;gap:12px;align-items:center}.ab span{width:64px;height:48px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700}
+nav{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));background:var(--cd);border-radius:36px;padding:8px;display:flex;border:1px solid var(--bd)}
+nav button{flex:1;border:0;background:none;color:var(--mu);font-size:12px;padding:8px 2px;border-radius:30px}nav button i{display:block;font-style:normal;font-size:22px}
+nav button.on{background:var(--r);color:#fff}
+input,select,.btn{width:100%;font:inherit;background:#161616;color:#fff;border:1px solid var(--bd);border-radius:10px;padding:11px;margin:4px 0}
+.btn{background:var(--r);border:0;font-weight:700}.btn.g{background:#333}
+.x{background:none;border:0;color:#ff6b6b;font-size:18px}
+.disc{text-align:center;color:var(--mu);font-size:11px;margin-top:18px}
+#lg{max-width:380px;margin:12vh auto 0;padding:24px;text-align:center}
+.back{background:none;border:0;color:#fff;font-size:15px;padding:0 0 10px}
+</style></head><body><div id="app"></div>
+<script>
+const K='cviva_data_v2',S='cviva_session_v2';
+const MAT=['Lingua e letteratura italiana','Storia','Lingua inglese','Matematica','Elettrotecnica ed Elettronica','Sistemi automatici','TPSEE','Scienze motorie e sportive','Religione cattolica'];
+const def=()=>({alunno:'Mega Matteo',classe:'4BE Elettronica ed Elettrotecnica',anno:'2026/2027',
+ users:{famiglia:{pw:'famiglia26',role:'view',nome:'Famiglia',sig:'FA'},gestore:{pw:'gestore26',role:'admin',nome:'Gestore',sig:'GE'}},
+ materie:MAT,voti:[],agenda:[],assenze:[],lezioni:[],note:[]});
+let D;try{D=JSON.parse(localStorage.getItem(K))||def()}catch(x){D=def()}
+D.lezioni=D.lezioni||[];D.note=D.note||[];D.gen=D.gen||{};
+let me=D.users.famiglia?'famiglia':null;
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+let tab='oggi',sub=null,day=ymd(new Date());
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(D))}catch(x){}};
+const e=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const adm=()=>me&&D.users[me].role==='admin';
+const fd=d=>d?d.split('-').reverse().join('/'):'';
+const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const avg=a=>a.length?a.reduce((s,v)=>s+v.voto,0)/a.length:null;
+const f2=n=>n==null?'–':n.toFixed(2);
+function fmt(v){let i=Math.floor(v),f=v-i;if(f<.125)return''+i;if(f<.375)return i+'+';if(f<.625)return i+'½';if(f<.875)return(i+1)+'-';return''+(i+1)}
+const ICO={'oggi': '<path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v2H2V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1z"/><path fill-rule="evenodd" d="M2 11h20v7a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3zM5 14v4h6v-4z"/>', 'dash': '<path d="M6 6l6 5M18 6l-6 5M7 18l5-7M18 17l-6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/><circle cx="12" cy="11" r="3.3"/><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/><circle cx="18" cy="17.5" r="2.5"/>', 'fun': '<rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="8" height="8" rx="2.2"/><rect x="13" y="13" width="8" height="8" rx="2.2"/>', 'extra': '<path fill-rule="evenodd" d="M21 3c0 4-1.500 8-5 11l-1.500 1.500-6-6L10 8c3-3.500 7-5 11-5zM15.500 7.500a1.700 1.700 0 1 0 .01 0z"/><path d="M8 11.500L4 12l-2 3 4.500.5zM12.500 16l-.5 4-3 2 .5-4.500zM3 21c0-2 1-3.500 3-4l1 1c-.5 2-2 3-4 3z"/>', 'val': '<path d="M4 3v17h17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 8h11M8 12h8M8 16h4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>', 'bac': '<path d="M8 2h8v2l-1 1v4l3 3v2h-5v7l-1 1-1-1v-7H6v-2l3-3V5L8 4z"/>', 'scr': '<path d="M4 3v17h17M7 15l4-5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>', 'ass': '<circle cx="9" cy="7" r="3.500"/><path d="M2 20c0-4 3-7 7-7 1 0 2 .2 3 .6V20z"/><circle cx="18" cy="17" r="4.300" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M18 14.500V17l1.500 1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.800"/>', 'not': '<path d="M16 3l5 5L8 21H3v-5z"/>', 'age': '<rect x="7" y="3" width="13" height="18" rx="2.500"/><path d="M3 7h5M3 12h5M3 17h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>', 'lez': '<circle cx="6.500" cy="5" r="2.500"/><path d="M3 21v-8L2 10l2-2h5l2 4-2 1.500V21zM13 3h9v9h-9z"/>', 'com': '<path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM13 3.500V9h5.500z" fill-rule="evenodd"/>', 'bam': '<path d="M12 2L2 8v2h20V8zM4 11.500h2.500V19H4zM8.800 11.500h2.500V19H8.800zM12.800 11.500h2.500V19h-2.500zM17.500 11.500H20V19h-2.500zM2 20h20v2H2z"/>', 'col': '<circle cx="8" cy="7" r="3.500"/><circle cx="17" cy="8" r="3"/><path d="M1 20c0-4 3-7 7-7s7 3 7 7zM15.500 14c3.500 0 6.500 1.500 7.500 6h-6.500z"/>', 'pag': '<path fill-rule="evenodd" d="M5 5h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3zM4 10.500V13h16v-2.500zM6 15.500v1.500h5v-1.500z"/>', 'prev': '<path d="M4.500 8A8.500 8.500 0 1 1 3.500 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 3v5.500h5.500" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7.500V12l3 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'};
+const ic=k=>`<svg class="ic" viewBox="0 0 24 24" fill="currentColor">${ICO[k]}</svg>`;
+ICO.ora='<circle cx="8" cy="7" r="3.500"/><path d="M1.500 20c0-4 3-7 6.500-7s6.500 3 6.500 7z"/><path d="M17 6c1.500 1.500 1.500 4 0 5.500M20 3.500c3 3 3 8 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>';ICO.edit='<path d="M5 3h8v2.500H5.500v13h13V11H21v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 2.500l4.500 4.500-9 9H8v-4.500z"/>';
+const fm=v=>v.imp?'I':fmt(v.voto);
+const cl=v=>v>=6?'':v>5?'or':'ko';
+const cc=v=>v>=6?'#4f8a1e':v>5?'#e07b1a':'#d32f2f';
+function login(){const u=U.value.trim().toLowerCase();if(D.users[u]&&D.users[u].pw===P.value){me=u;tab='oggi';sub=null;render()}else ER.textContent='Credenziali non valide'}
+function logout(){me=null;render()}
+const go=(t,s)=>{tab=t;sub=s||null;render();scrollTo(0,0)};
+function shift(n){const d=new Date();d.setDate(d.getDate()+n);return ymd(d)}
+function fixStrip(){const z=document.getElementById('ds'),o=z&&z.querySelector('.on');if(z&&o)z.scrollLeft=o.offsetLeft-z.clientWidth/2+o.offsetWidth/2}
+function head(){if(tab!=='oggi')return `<div class="hd" style="padding-top:calc(52px + env(safe-area-inset-top));padding-bottom:28px"><div class="top"><h1 style="font-size:32px;font-style:normal">${{dash:'Dashboard',fun:'Funzioni',extra:'Extra'}[tab]}</h1>${tab==='dash'?`<span onclick="go('extra')">${ic('edit')}</span>`:''}</div></div>`;const L=['D','L','M','M','G','V','S'],M=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+ const t=new Date(day+'T12:00');let s=`<div class="hd"><div class="top"><div><h1>Classe Víva</h1><small>${M[t.getMonth()].toUpperCase()}</small></div><div class="av">${e(D.users[me].sig||'US')}</div></div>`;
+ if(tab==='oggi'){s+='<div class="days" id="ds">';for(let n=-120;n<=120;n++){const d=shift(n),x=new Date(d+'T12:00');s+=`<div class="dy ${d===day?'on':''}" onclick="day='${d}';render()">${L[x.getDay()]}<b>${x.getDate()}</b></div>`}s+='</div>'}
+ else s+=`<div style="margin-top:8px;font-size:12px;opacity:.85">${e(D.alunno)} · ${e(D.classe)} · ${e(D.anno)}</div>`;
+ return s+'</div>'}
+function render(){render0();fixStrip()}
+function render0(){const A=document.getElementById('app');
+ if(!me){A.style.background='#111';A.innerHTML=`<div id="lg"><div class="c"><h1 style="color:#e33;font-style:italic">Classe Víva</h1><p class="mu">Accedi con il tuo account</p>
+ <input id="U" placeholder="Utente" autocapitalize="none"><input id="P" type="password" placeholder="Password"><div id="ER" style="color:#ff6b6b;min-height:20px"></div>
+ <button class="btn" onclick="login()">Accedi</button></div></div>`;return}
+ A.style.background='';
+ const T=[['oggi','oggi','Oggi'],['dash','dash','Dashboard'],['fun','fun','Funzioni'],['extra','extra','Extra']];
+ A.innerHTML=head()+`<div class="body">${page()}</div>
+ <nav>${T.map(t=>`<button class="${tab===t[0]?'on':''}" onclick="go('${t[0]}')"><i>${ic(t[1])}</i>${t[2]}</button>`).join('')}</nav>`}
+function page(){return({oggi,dash,fun,extra}[tab])()}
+function oggi(){const l=D.lezioni.filter(x=>x.data===day).sort((a,b)=>a.ora-b.ora),a=D.agenda.filter(x=>x.data===day),vs=D.voti.filter(x=>x.data===day);let h='';
+ if(vs.length)h+=`<div class="row"><h2>Valutazioni</h2><button class="pill" onclick="go('fun','val')">Vedi tutti</button></div><div class="hs">`+vs.map(x=>`<div class="vc"><span class="mu" style="font-size:14px">${e(x.tipo)}</span><div style="text-align:center"><span class="chip ${cl(x.voto)}">${fm(x)}</span></div><b style="text-transform:uppercase;font-size:16px">${e(x.materia)}</b></div>`).join('')+'</div>';
+ h+=`<div class="row"><h2>Lezioni</h2><button class="pill" onclick="go('fun','lez')">Vedi tutti</button></div>`+(l.length?l.map(x=>`<div class="c"><b>${e(x.materia)}</b><div class="mu">👤 ${e(x.docente)} &nbsp; 🗓️ ${x.ora} ora</div><div class="line"></div>${e(x.testo)}</div>`).join(''):'<div class="c mu">Nessuna lezione registrata.</div>');
+ if(a.length)h+='<h2>Agenda</h2>'+a.map(x=>`<div class="c"><span class="mu">${e(x.tipo)}</span><br><b>${e(x.materia)}</b><div>${e(x.testo)}</div></div>`).join('');
+ return h}
+function dots(el){const i=Math.round(el.scrollLeft/el.clientWidth);el.parentNode.querySelectorAll('.dots i').forEach((d,k)=>d.className=k===i?'a':'')}
+function dash(){const m=avg(D.voti),p=m?Math.min(m/10,1):0,C=2*Math.PI*52,all=D.voti.slice().sort((a,b)=>b.data.localeCompare(a.data)),last=all.slice(0,2),col=m?cc(m):'#4f8a1e';
+ const n=t=>D.assenze.filter(x=>x.tipo===t).length,dg=t=>D.assenze.filter(x=>x.tipo===t&&x.dg).length;
+ const dc=v=>`<span class="dchip ${cl(v.voto)}">${fm(v)}${ic(v.tipo==='Orale'?'ora':'not')}</span>`;
+ let h=`<div class="c" style="padding:26px 20px"><div class="row" style="gap:20px;justify-content:flex-start"><svg width="112" height="112" viewBox="0 0 130 130" style="flex:none"><circle cx="65" cy="65" r="52" fill="none" stroke="#2a2f25" stroke-width="12"/><circle cx="65" cy="65" r="52" fill="none" stroke="${col}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C*p} ${C}" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" fill="${col}" font-size="22" font-weight="600">${f2(m)}</text></svg>
+ <div><div style="font-size:26px;font-weight:700">Media</div><div style="color:var(--mu);font-size:18px">Complessiva</div><div class="mu">${all.length} valutazioni</div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${last.map(dc).join('')}</div></div></div></div>`;
+ const pg=[];for(let k=0;k<all.length;k+=4)pg.push(all.slice(k,k+4));
+ if(pg.length)h+=`<div class="c" style="padding:16px 10px 12px"><div class="pg" onscroll="dots(this)">${pg.map(q=>`<div class="pp">${q.map(v=>`<div class="pi">${dc(v)}<div class="pn">${e(v.materia)}</div><div class="mu">${e(v.tipo)}</div></div>`).join('')}</div>`).join('')}</div>${pg.length>1?`<div class="dots">${pg.map((_,k)=>`<i class="${k?'':'a'}"></i>`).join('')}</div>`:''}</div>`;
+ const it=(t,lab,bg)=>`<div class="ai"><span class="ac" style="background:${bg}">${n(t)}</span><div><b>${lab}</b><div class="mu">${dg(t)} da giustificare</div></div></div>`;
+ h+=`<div class="c" onclick="go('fun','ass')" style="padding:20px"><div class="row"><b style="font-size:20px;text-transform:none">Assenze</b><span style="color:var(--mu);font-size:22px">›</span></div><div class="ag">${it('Assenza','Assenze','var(--r)')}${it('Ritardo','Ritardi','var(--or)')}${it('Assenza parziale','Assenze Parziali','var(--bl)')}${it('Uscita','Uscite','var(--ye)')}</div></div>`;
+ return h}
+function fun(){if(sub)return sub==='val'?val():sub==='ass'?ass():sub==='age'?age():sub==='not'?not():sub==='lez'?lez():sub==='prev'?bk()+'<h2>Anno precedente</h2><div class="c mu">Nessun anno precedente archiviato.</div>':G[sub]?gen(sub):'';
+ const F=[['val','val','Valutazioni'],['bac','bac','Bacheca'],['scr','scr','Scrutini'],['ass','ass','Assenza'],['not','not','Note'],['age','age','Agenda'],['lez','lez','Lezioni'],['com','com','Compiti/ Materiali'],['bam','bam','Bacheca Ministeriale'],['col','col','Colloqui'],['pag','pag','PagOnline'],['prev','prev','Vai all\'anno precedente']];
+ return '<div class="grid">'+F.map(f=>`<div class="fn" onclick="go('fun','${f[0]}')"><i>${ic(f[1])}</i>${f[2]}</div>`).join('')+'</div>'}
+const G={bac:'Bacheca',scr:'Scrutini',com:'Compiti/Materiali',bam:'Bacheca Ministeriale',col:'Colloqui',pag:'PagOnline'};
+function gen(k){const l=(D.gen[k]||[]).slice().sort((a,b)=>b.data.localeCompare(a.data));return bk()+'<h2>'+G[k]+'</h2>'+(l.map(x=>`<div class="c row"><div><span class="mu">${fd(x.data)}</span><br><b>${e(x.titolo)}</b><div>${e(x.testo)}</div></div>${adm()?`<button class="x" onclick="delG('${k}','${x.id}')">✕</button>`:''}</div>`).join('')||'<div class="c mu">Nessun contenuto.</div>')}
+function addG(){if(!gt.value.trim())return;(D.gen[gk.value]=D.gen[gk.value]||[]).push({id:id(),titolo:gt.value,testo:gx.value,data:gd.value});save();render();alert('Aggiunto')}
+function delG(k,i){if(!adm()||!confirm('Eliminare?'))return;D.gen[k]=D.gen[k].filter(x=>x.id!==i);save();render()}
+const bk=()=>'<button class="back" onclick="go(\'fun\')">‹ Funzioni</button>';
+function val(){let h=bk()+'<h2>Valutazioni</h2>';
+ D.materie.forEach(m=>{const v=D.voti.filter(x=>x.materia===m).sort((a,b)=>b.data.localeCompare(a.data));if(!v.length)return;
+  h+=`<div class="c"><div class="row"><b>${e(m)}</b><span class="mu">Media ${f2(avg(v))}</span></div><div class="line"></div>`+v.map(x=>`<div class="row" style="margin:8px 0"><div><span class="mu">${fd(x.data)} · ${e(x.tipo)}</span>${x.note?'<div>'+e(x.note)+'</div>':''}</div><div>${adm()?`<button class="x" onclick="del('voti','${x.id}')">✕</button>`:''}<span class="chip ${cl(x.voto)}">${fm(x)}</span></div></div>`).join('')+'</div>'});
+ return D.voti.length?h:h+'<div class="c mu">Nessun voto.</div>'}
+function ass(){const l=D.assenze.slice().sort((a,b)=>b.data.localeCompare(a.data));
+ return bk()+'<h2>Assenze</h2>'+(l.map(x=>`<div class="c row"><div><b style="text-transform:none">${e(x.tipo)}</b><div class="mu">${fd(x.data)} ${e(x.note)}${x.dg?' · da giustificare':''}</div></div>${adm()?`<button class="x" onclick="del('assenze','${x.id}')">✕</button>`:''}</div>`).join('')||'<div class="c mu">Nessuna registrazione.</div>')}
+function age(){const l=D.agenda.slice().sort((a,b)=>a.data.localeCompare(b.data));
+ return bk()+'<h2>Agenda</h2>'+(l.map(x=>`<div class="c row"><div><span class="mu">${e(x.tipo)} · ${fd(x.data)}</span><br><b>${e(x.materia)}</b><div>${e(x.testo)}</div></div>${adm()?`<button class="x" onclick="del('agenda','${x.id}')">✕</button>`:''}</div>`).join('')||'<div class="c mu">Nessun impegno.</div>')}
+function not(){return bk()+'<h2>Note</h2>'+(D.note.map(x=>`<div class="c row"><div><span class="mu">${fd(x.data)}</span><div>${e(x.testo)}</div></div>${adm()?`<button class="x" onclick="del('note','${x.id}')">✕</button>`:''}</div>`).join('')||'<div class="c mu">Nessuna nota.</div>')}
+function lez(){return bk()+'<h2>Lezioni</h2>'+(D.lezioni.slice().sort((a,b)=>b.data.localeCompare(a.data)).slice(0,30).map(x=>`<div class="c row"><div><b>${e(x.materia)}</b><div class="mu">${fd(x.data)} · ${x.ora} ora · ${e(x.docente)}</div><div>${e(x.testo)}</div></div>${adm()?`<button class="x" onclick="del('lezioni','${x.id}')">✕</button>`:''}</div>`).join('')||'<div class="c mu">Nessuna lezione.</div>')}
+function extra(){return extra0()+'<p class="disc" style="font-size:10px">App personale, non ufficiale</p>'}
+function extra0(){let h=`<h2>Extra</h2><div class="c"><b style="text-transform:none">${e(D.users[me].nome)}</b><div class="mu">${adm()?'Gestore: può modificare tutto':'Sola lettura'}</div><div class="mu">${e(D.alunno)} · ${e(D.classe)} · ${e(D.anno)}</div><br><button class="btn g" onclick="logout()">Disconnetti / cambia account</button></div>`;
+ if(!adm())return h;
+ const mo=D.materie.map(m=>`<option>${e(m)}</option>`).join(''),t=ymd(new Date());
+ return h+`<h4>Nuovo voto</h4><div class="c"><select id="vm">${mo}</select><select id="vv"><option value="">Scegli la valutazione</option><option value="I">I – Impreparato (= 4)</option>${(()=>{let o='';for(let x=1;x<=10;x+=.25)o+=`<option value="${x}">${fmt(x)}</option>`;return o})()}</select><select id="vt"><option>Orale</option><option>Scritto/Grafico</option><option>Pratico</option></select><input id="vd" type="date" value="${t}"><input id="vn" placeholder="Nota"><button class="btn" onclick="addV()">Aggiungi voto</button></div>
+ <h4>Nuova lezione</h4><div class="c"><select id="lm">${mo}</select><input id="ld" list="dl" placeholder="Nome e cognome del professore"><datalist id="dl">${[...new Set(D.lezioni.map(x=>x.docente))].map(x=>`<option value="${e(x)}">`).join('')}</datalist><input id="lo" type="number" min="1" max="8" placeholder="Ora della lezione (1-8)"><input id="lo2" type="number" min="1" max="8" placeholder="Fino all'ora (solo se più ore, es. 2)"><input id="lt" type="date" value="${t}"><input id="lx" placeholder="Cosa è stato fatto nella lezione"><button class="btn" onclick="addL()">Aggiungi lezione</button></div>
+ <h4>Agenda</h4><div class="c"><select id="at"><option>Compito</option><option>Verifica</option><option>Interrogazione</option><option>Evento</option></select><select id="am">${mo}</select><input id="ax" placeholder="Descrizione"><input id="ad" type="date" value="${t}"><button class="btn" onclick="addA()">Aggiungi</button></div>
+ <h4>Assenze</h4><div class="c"><select id="st"><option>Assenza</option><option>Ritardo</option><option>Uscita</option><option>Assenza parziale</option></select><select id="sg"><option value="0">Giustificata</option><option value="1">Da giustificare</option></select><input id="sd" type="date" value="${t}"><input id="sn" placeholder="Nota"><button class="btn" onclick="addS()">Registra</button></div>
+ <h4>Nota disciplinare</h4><div class="c"><input id="nx" placeholder="Testo"><input id="nd" type="date" value="${t}"><button class="btn" onclick="addN()">Aggiungi nota</button></div>
+ <h4>Altre sezioni</h4><div class="c"><select id="gk">${Object.entries(G).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select><input id="gt" placeholder="Titolo"><input id="gx" placeholder="Testo"><input id="gd" type="date" value="${t}"><button class="btn" onclick="addG()">Aggiungi</button></div><h4>Account e dati</h4><div class="c"><select id="cu"><option value="famiglia">Famiglia (sola lettura)</option><option value="gestore">Gestore</option></select><input id="cp" placeholder="Nuova password (min 6)"><button class="btn" onclick="chPw()">Salva password</button><button class="btn g" onclick="exp()">Esporta backup</button><input type="file" accept=".json" onchange="imp(this)"></div>`}
+function addV(){const im=vv.value==='I',v=im?4:parseFloat(vv.value);if(!(v>=1&&v<=10))return alert('Voto da 1 a 10');D.voti.push({id:id(),imp:im,materia:vm.value,voto:v,tipo:vt.value,data:vd.value,note:vn.value});save();render();alert('Voto aggiunto')}
+function addL(){if(!ld.value.trim()||!lx.value.trim())return alert('Inserisci professore e cosa è stato fatto');const a=Math.max(1,+lo.value||1),b=Math.max(a,+lo2.value||a);for(let h=a;h<=b;h++)D.lezioni.push({id:id(),materia:lm.value,docente:ld.value.trim(),ora:h,data:lt.value,testo:lx.value});save();render();alert('Lezione aggiunta')}
+function addA(){if(!ax.value.trim())return;D.agenda.push({id:id(),tipo:at.value,materia:am.value,testo:ax.value,data:ad.value});save();render();alert('Aggiunto')}
+function addS(){D.assenze.push({id:id(),tipo:st.value,dg:sg.value==='1',data:sd.value,note:sn.value});save();render();alert('Registrato')}
+function addN(){if(!nx.value.trim())return;D.note.push({id:id(),testo:nx.value,data:nd.value});save();render();alert('Nota aggiunta')}
+function del(k,i){if(!adm()||!confirm('Eliminare?'))return;D[k]=D[k].filter(x=>x.id!==i);save();render()}
+function chPw(){if(cp.value.length<6)return alert('Minimo 6 caratteri');D.users[cu.value].pw=cp.value;save();cp.value='';alert('Password aggiornata')}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(D)],{type:'application/json'}));a.download='classe_viva_backup.json';a.click()}
+function imp(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.users&&d.voti){D=d;D.lezioni=D.lezioni||[];D.note=D.note||[];D.gen=D.gen||{};save();render();alert('Importato')}}catch(x){alert('File non valido')}};r.readAsText(f)}
+function moveDay(n){const d=new Date(day+'T12:00');d.setDate(d.getDate()+n);day=ymd(d);render()}
+let tx=0,ty=0,ts=false;
+document.addEventListener('touchstart',ev=>{const t=ev.touches[0];tx=t.clientX;ty=t.clientY;const h=ev.target.closest('.hs');ts=!ev.target.closest('.days,input,select,textarea')&&!(h&&h.scrollWidth>h.clientWidth+2)},{passive:true});
+document.addEventListener('touchend',ev=>{if(!me||tab!=='oggi'||!ts)return;const t=ev.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)moveDay(dx<0?1:-1)},{passive:true});
+render();
+</script></body></html>
